@@ -33,7 +33,7 @@ public class ProductController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<Product> getById(@Parameter(description = "Идентификатор товара", example = "1")
-                                               @PathVariable int id) {
+                                           @PathVariable int id) {
         Product product = productRepository.findById(id);
         return ResponseEntity.ok(product);
     }

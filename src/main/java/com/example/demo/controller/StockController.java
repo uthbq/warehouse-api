@@ -42,7 +42,7 @@ public class StockController {
     })
     @GetMapping("/{productId}")
     public Stock getStockByProductId(@Parameter(description = "Идентификатор товара", example = "1")
-                                         @PathVariable("productId") int productId) {
+                                     @PathVariable("productId") int productId) {
         return stockRepository.findByProductId(productId);
     }
 }

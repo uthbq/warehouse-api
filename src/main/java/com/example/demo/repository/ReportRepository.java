@@ -19,20 +19,20 @@ public class ReportRepository {
 
     public List<WriteOffReportDto> getWriteOffReport(Date startDate, Date endDate) {
         String sql = """
-            SELECT 
-                s.name AS store_name,
-                p.name AS product_name,
-                SUM(ii.quantity) AS total_quantity,
-                SUM(ii.quantity * ii.price) AS total_price
-            FROM invoices i
-            JOIN invoice_items ii ON i.id = ii.invoice_id
-            JOIN stores s ON i.store_id = s.id
-            JOIN products p ON ii.product_id = p.id
-            WHERE i.operation = 'WRITE_OFF'
-              AND i.date BETWEEN ? AND ?
-            GROUP BY s.name, p.name
-            ORDER BY total_price DESC;
-            """;
+                SELECT 
+                    s.name AS store_name,
+                    p.name AS product_name,
+                    SUM(ii.quantity) AS total_quantity,
+                    SUM(ii.quantity * ii.price) AS total_price
+                FROM invoices i
+                JOIN invoice_items ii ON i.id = ii.invoice_id
+                JOIN stores s ON i.store_id = s.id
+                JOIN products p ON ii.product_id = p.id
+                WHERE i.operation = 'WRITE_OFF'
+                  AND i.date BETWEEN ? AND ?
+                GROUP BY s.name, p.name
+                ORDER BY total_price DESC;
+                """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> new WriteOffReportDto(
                 rs.getString("store_name"),
@@ -44,20 +44,20 @@ public class ReportRepository {
 
     public List<SalesReportDto> getSalesReport(Date startDate, Date endDate) {
         String sql = """
-            SELECT 
-                s.name AS store_name,
-                p.name AS product_name,
-                SUM(ii.quantity) AS total_quantity,
-                SUM(ii.quantity * ii.price) AS total_revenue
-            FROM invoices i
-            JOIN invoice_items ii ON i.id = ii.invoice_id
-            JOIN stores s ON i.store_id = s.id
-            JOIN products p ON ii.product_id = p.id
-            WHERE i.operation = 'SALE'
-              AND i.date BETWEEN ? AND ?
-            GROUP BY s.name, p.name
-            ORDER BY total_revenue DESC;
-            """;
+                SELECT 
+                    s.name AS store_name,
+                    p.name AS product_name,
+                    SUM(ii.quantity) AS total_quantity,
+                    SUM(ii.quantity * ii.price) AS total_revenue
+                FROM invoices i
+                JOIN invoice_items ii ON i.id = ii.invoice_id
+                JOIN stores s ON i.store_id = s.id
+                JOIN products p ON ii.product_id = p.id
+                WHERE i.operation = 'SALE'
+                  AND i.date BETWEEN ? AND ?
+                GROUP BY s.name, p.name
+                ORDER BY total_revenue DESC;
+                """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> new SalesReportDto(
                 rs.getString("store_name"),

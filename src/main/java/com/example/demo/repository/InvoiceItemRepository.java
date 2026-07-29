@@ -32,7 +32,7 @@ public class InvoiceItemRepository {
 
     public void saveAll(List<InvoiceItem> items) {
         String sql = "INSERT INTO invoice_items (invoice_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.batchUpdate(sql,items, items.size(), (PreparedStatement ps, InvoiceItem item) -> {
+        jdbcTemplate.batchUpdate(sql, items, items.size(), (PreparedStatement ps, InvoiceItem item) -> {
             ps.setInt(1, item.getInvoice_id());
             ps.setInt(2, item.getProduct_id());
             ps.setInt(3, item.getQuantity());

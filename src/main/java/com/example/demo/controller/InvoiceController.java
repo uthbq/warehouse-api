@@ -28,8 +28,8 @@ public class InvoiceController {
     @Operation(summary = "Провести новую накладную", description = "Принимает накладную и выполняет" +
             " списывание в зависимости от типа операции (SALE, WRITE_OFF)")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201",description = "Накладная успешно проведена"),
-            @ApiResponse(responseCode = "400",description = "Некорректные данные в накладной или " +
+            @ApiResponse(responseCode = "201", description = "Накладная успешно проведена"),
+            @ApiResponse(responseCode = "400", description = "Некорректные данные в накладной или " +
                     "недостаточный остаток товара на складе")
     })
     @PostMapping
